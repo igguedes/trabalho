@@ -1,0 +1,147 @@
+body{
+	background: #e6ecf0;
+}
+.login-box{
+	width: 300px;
+	margin-top: 100px !important;
+	margin: 0 auto;
+	text-align: center;
+}
+
+input{
+	margin-bottom: 5px;
+}
+
+.txt-white{
+	color: #FFF;
+}
+
+.login-avatar{
+	color: #FFF;
+	font-size: 10em;
+	text-align: center;
+}
+
+.navbar-default .navbar-nav>.active>a{
+	background: #1ca1f0;
+	color: #FFF;
+}
+
+.navbar-default .navbar-nav>.active>a:hover{
+	background: #1ca1f0;
+	color: #FFF;
+}
+
+.card{
+	background: #FFF;
+}
+
+.custom-nav{
+	width: 100%;
+	height: 50px;
+	display: flex;
+	background: #FFF;
+	-webkit-box-shadow: -1px 6px 10px -6px rgba(0,0,0,0.75);
+	-moz-box-shadow: -1px 6px 10px -6px rgba(0,0,0,0.75);
+	box-shadow: -1px 6px 10px -6px rgba(0,0,0,0.75);
+
+}
+
+.menu{
+	width: 1170px;
+	margin: 0 auto;
+	height: 100%;
+	display: flex;
+}
+
+.menu .menu-item{
+	font-size: 1.4em;
+	color: #66757f;
+	margin-right: 25px;
+	cursor:pointer;
+	transition: 0.4s;
+	position: relative;
+	height: 50px;
+	padding: 10px
+}
+
+.menu .menu-item:hover{
+	color: #1ca1f0;
+}
+
+.active{
+	color: #1ca1f0 !important;
+}
+
+.active:after{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 4px;
+    top: 98%;
+    left: 0;
+    width: 100%;
+    background: #1ca1f0;
+    transition: 0.3s;
+}
+
+a, a:hover{
+	text-decoration: none;
+}
+
+div.search{
+	padding: 5px;
+	display: flex;
+}
+
+div.search button{
+	height: 33px;
+	margin-left: 10px;
+	margin-top:2px;
+	transition: 0.4s;
+}
+
+
+div.search button:hover{
+	background: #1ca1f0;
+	color: #FFF;
+}
+
+.no-padding{
+	padding: 0;
+}
+
+.main{
+	display: flex;
+	margin-top: 20px;
+}
+
+.perfil{
+	width: 35%;
+	margin-right: 20px;
+}
+
+.conteudo{
+	width: 65%;
+}
+
+.perfil{
+	position: relative;
+}
+
+.perfil-header{
+	background: #1ca1f0;
+	height: 100px;
+	text-align: center;
+}
+
+.perfil-header img{
+	width: 100px;
+	border: 3px solid #FFF;
+	border-radius: 50%;
+	margin-top: 40px;
+}
+
+.perfil-content{
+	padding: 10px;
+}
