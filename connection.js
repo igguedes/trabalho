@@ -4,7 +4,7 @@ var params = {
   connection: {
     host     : '127.0.0.1',
     user     : 'root',
-    password : 'igor1994',
+    password : '1234',
     database : 'exemplo',
     charset  : 'utf8'
   }
@@ -17,4 +17,3 @@ var connection = bookshelf(knex);
 
 
 module.exports = connection;
-

@@ -11,5 +11,5 @@ app.use(routes);
 
 
 app.listen(3000, function(){
-	console.log("servidor rodando");
+	console.log("servidor rodando porta 3000");
 });

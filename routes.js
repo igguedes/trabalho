@@ -11,7 +11,8 @@ routes.use(bodyParser.json());
 
 routes.get('/usuarios', UsuarioCtrl.getAll);
 routes.get('/usuario/:id', UsuarioCtrl.get);
-routes.post('/usuario', UsuarioCtrl.post);
+routes.post('/usuario', UsuarioCtrl.criaUsuario);
+routes.post('/login',UsuarioCtrl.login);
 routes.put('/usuario/:id', UsuarioCtrl.put);
 routes.delete('/usuario/:id', UsuarioCtrl.delete);
 

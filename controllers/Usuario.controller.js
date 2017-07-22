@@ -18,6 +18,27 @@ UsuarioCtrl.getAll = function(req, res){
 	);
 }
 
+UsuarioCtrl.login = function(req, res){
+	var usuario = req.body;
+	Usuario.forge()
+		.query(function(q){
+			q.where('email','=', usuario.email);
+			q.where('senha','=', usuario.senha);
+		})
+		.fetch()
+		.then(function(row){
+			if(row==null) return res.status(401).json({msg: "E-mail ou Senha incorretos"});
+			var usr = {
+				id : row.attributes.id,
+				email : row.attributes.email,
+				nome : row.attributes.nome
+			}
+			console.log(usr);
+			res.status(200).json({msg : "Login com sucesso"});
+		})
+
+}
+
 UsuarioCtrl.get = function(req, res){
 	Usuario.forge({id: req.params.id}).fetch()
 	.then(
@@ -34,10 +55,10 @@ UsuarioCtrl.get = function(req, res){
 	);
 }
 
-UsuarioCtrl.post = function(req, res){
+UsuarioCtrl.criaUsuario = function(req, res){
 
 	var novoUsuario = req.body;
-
+	console.log(novoUsuario);
 	Usuario.forge().save(novoUsuario)
 	.then(
 		//Função executada quando o usuário é inserido

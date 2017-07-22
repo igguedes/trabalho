@@ -14,7 +14,7 @@ var connection = require('../connection');
 
 //Passando a referencia da tabela usuários para a variave Usuario
 var Usuario = connection.Model.extend({
-  tableName: 'usuarios'
+  tableName: 'usuario'
 });
 
 module.exports = Usuario;
