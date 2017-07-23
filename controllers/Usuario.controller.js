@@ -1,5 +1,6 @@
 var UsuarioCtrl = {};
 var Usuario = require('../models/Usuario.model');
+var Autenticacao = require('./Autenticacao.controller');
 
 UsuarioCtrl.getAll = function(req, res){
 
@@ -34,7 +35,8 @@ UsuarioCtrl.login = function(req, res){
 				nome : row.attributes.nome
 			}
 			console.log(usr);
-			res.status(200).json({msg : "Login com sucesso"});
+			var token = Autenticacao.gerarToken(usr);
+			res.status(200).json({usurario: usr,token: token,msg : "Login com sucesso"});
 		})
 
 }
