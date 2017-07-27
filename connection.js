@@ -4,8 +4,8 @@ var params = {
   connection: {
     host     : '127.0.0.1',
     user     : 'root',
-    password : '1234',
-    database : 'exemplo',
+    password : 'igor1994',
+    database : 'web2',
     charset  : 'utf8'
   }
 }

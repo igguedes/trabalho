@@ -8,9 +8,9 @@
 		<i class="fa fa-user-circle-o" aria-hidden="true"></i>
 	</div>
 	<h3 class="txt-white">Cadastro</h3>
-	<input type="text" class="form-control" placeholder="Nome" name="">
-	<input type="email" class="form-control" placeholder="Email" name="">
-	<input type="password" class="form-control" placeholder="Senha" name="">
-	<input type="password" class="form-control" placeholder="Repetir senha" name="">	
-	<button class="btn btn-default btn-block">CADASTRAR</button>
+	<input type="text" ng-model="user.nome" class="form-control" placeholder="Nome" name="">
+	<input type="email" ng-model="user.email" class="form-control" placeholder="Email" name="">
+	<input type="password" ng-model="user.senha" class="form-control" placeholder="Senha" name="">
+	<input type="password" ng-model="user.senha2" class="form-control" placeholder="Repetir senha" name="">	
+	<button class="btn btn-default btn-block" ng-click="insert(user)" ng-disabled="user.senha != user.senha2 || !user.senha">CADASTRAR</button>
 </div>
