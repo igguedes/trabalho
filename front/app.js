@@ -1,6 +1,6 @@
 var app = angular.module('Web2', ['ui.router']);
 
-app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
+app.config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
 
 	$httpProvider.interceptors.push(function($q,$injector) {
 	      return {
@@ -17,10 +17,10 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 		        }
 	      };
     });
-
+    
 	$stateProvider
 		.state('login',{
-			url: '/login',
+			url: '/',
 			templateUrl: 'views/login.html',
 			controller: 'UserCtrl'
 		})
@@ -39,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 			}
 		})
 		.state('main.home',{
-			url:'/',
+			url:'/home',
 			templateUrl: 'views/home.html',
 			controller: 'MainCtrl'
 		})
@@ -50,5 +50,9 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 		.state('main.notificacoes',{
 			url:'/notificacoes',
 			templateUrl: 'views/notificacoes.html'
+		});
+
+		$locationProvider.html5Mode({
+			enabled: true
 		});
 });
