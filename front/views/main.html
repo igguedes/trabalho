@@ -4,7 +4,7 @@
 			<span><span><i class="fa fa-home"></i></span></span>
 			<span>Principal</span>
 		</a>
-		<a class="menu-item {{isRouteActive('/usuarios')? 'active' : ''}}" href="#/usuarios">
+		<a class="menu-item {{isRouteActive('/usuarios')? 'active' : ''}}" href="#/usuarios?pesquisa=">
 			<span><span><i class="fa fa-users"></i></span></span>
 			<span>Usuários</span>
 		</a>
@@ -13,8 +13,8 @@
 			<span>Notificações</span>
 		</a>
 		<div class="search">
-			 <input type="text" class="form-control" placeholder="Buscar usuarios" style="margin-top: 2px">
-			 <button class="btn btn-default">Buscar</button>
+			 <input type="text" ng-model="busca" class="form-control" placeholder="Buscar usuarios" style="margin-top: 2px">
+			 <a class="btn btn-default" style="margin-left: 5px;height: 35px;margin-top: 1px" href="#/usuarios?pesquisa={{busca}}">Buscar</a>
 		</div>
 	</div>
 
@@ -26,25 +26,16 @@
 				<img src="../eu.jpg">
 			</div>
 			<div class="perfil-content">
-				oi
+				<h4>Igor Guedes {{teste}}</h4>
+				<p>teste@teste.com</p>
+				<button ng-click="logout()" class="btn btn-danger">
+					Sair
+				</button>
 			</div>
 		</div>
 		<div class="conteudo card" ui-view>
 			
 		</div>
 	</div>
-	<!-- 	<div class="row">
-		<div class="col-md-4 no-padding">
-			<div class="card">
-				oi
-			</div>
-		</div>
-		<div class="col-md-8 no-padding" style="padding-left: 20px">
-			<div class="card">
-				
-			</div>
-		</div>
-		</div>
- -->
 </div>
 

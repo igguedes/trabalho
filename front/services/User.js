@@ -8,8 +8,13 @@ app.factory('User', function($http){
 		return $http.post('/login', params);
 	}
 
+	function getAll(params){
+		return $http.get('/usuarios?pesquisa=' + params);
+	}
+
 	return{
 		insert: insert,
-		login: login
+		login: login,
+		getAll: getAll
 	}
 });

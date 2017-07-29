@@ -10,10 +10,7 @@ routes.use(bodyParser.json());
 
 //Definindo as rotas
 
-//routes.get('/usuarios', AutenticacaoCtrl.verificarCredenciais, UsuarioCtrl.getAll);
-routes.get('/usuarios', AutenticacaoCtrl.verificarCredenciais, function(req, res){
-	res.send('teste');
-});
+routes.get('/usuarios', AutenticacaoCtrl.verificarCredenciais, UsuarioCtrl.getAll);
 routes.get('/usuario/:id', UsuarioCtrl.get);
 routes.post('/usuario', UsuarioCtrl.criaUsuario);
 routes.post('/login',UsuarioCtrl.login);

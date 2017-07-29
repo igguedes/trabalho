@@ -4,20 +4,20 @@ var Autenticacao = require('./Autenticacao.controller');
 var fs = require('fs');
 
 UsuarioCtrl.getAll = function(req, res){
-
-	Usuario.forge().fetchAll()
-	.then(
-		//Função executada em caso de sucesso
-		function(rows){
-			usuarios = rows.toJSON();
-			res.status(200).json(usuarios);
-		}
-	).catch(
-		//Função executada em caso de erro
-		function(error){
-			res.status(400).json({error: error});
-		}
-	);
+	var filtro = {};
+	req.query.pesquisa != '' && (filtro = req.query);
+	Usuario.forge()
+		.query(function(q){
+			req.query.pesquisa != '' && (q.whereRaw('nome like ?', ['%' + filtro.pesquisa + '%']));
+			q.orderBy('id', 'DESC')
+		})
+		.fetchAll().then(function(rows){
+			var data = rows.toJSON();
+			res.status(200).json(data);
+		}).catch(function(error){
+			console.log(error);
+			res.status(500).json({msg: error});
+		});
 }
 
 UsuarioCtrl.login = function(req, res){

@@ -1,1 +1,20 @@
-<h1>Usuarios</h1>
+<div class="lista-usuarios">
+	<h3>Lista de usuários</h3>
+	<div class="usuario" ng-repeat="usuario in usuarios">
+		<div class="imagem">
+			<img src="../eu.jpg">
+		</div>
+		<div class="info">
+			<h4>{{usuario.nome}}</h4>
+			<p>{{usuario.email}}</p>
+		</div>
+		<div class="actions">
+			<button class="btn btn-success">
+				Seguir
+			</button>
+<!-- 			<button class="btn btn-danger">
+				Deixar de seguir
+			</button> -->
+		</div>
+	</div>
+</div>

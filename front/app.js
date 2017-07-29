@@ -36,6 +36,11 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 				$scope.isRouteActive = function(url){
 					return $location.path() == url;
 				}
+				$scope.logout = function (){
+					localStorage.removeItem('web_token');
+					$location.path('login');
+					toastr.warning('Você saiu!');
+				}
 			}
 		})
 		.state('main.home',{
@@ -45,7 +50,8 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider){
 		})
 		.state('main.usuarios',{
 			url:'/usuarios',
-			templateUrl: 'views/usuarios.html'
+			templateUrl: 'views/usuarios.html',
+			controller: 'UserCtrl'
 		})
 		.state('main.notificacoes',{
 			url:'/notificacoes',

@@ -31,7 +31,6 @@ AutenticacaoCtrl.verificarCredenciais = function(req, res, next){
 		return res.status(401).json({msg: 'Sem credenciais de acesso'});
 	}
 	else{
-		console.log('chegou aqui');
 		tokenDecoded = jwt.decode(token, SECRET);
 		if(tokenDecoded.dataExpiracao < Date.now()){
 			return res.status(401).json({msg: 'Token expirado'});
@@ -49,6 +48,7 @@ AutenticacaoCtrl.verificarCredenciais = function(req, res, next){
 				if(row == null){
 					res.status(401).json({msg: 'Token invalido'});
 				}else{
+					console.log('autenticado');
 					next();
 				}
 			});

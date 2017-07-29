@@ -119,6 +119,7 @@ div.search button:hover{
 .perfil{
 	width: 35%;
 	margin-right: 20px;
+	height: 280px;
 }
 
 .conteudo{
@@ -144,4 +145,47 @@ div.search button:hover{
 
 .perfil-content{
 	padding: 10px;
+	text-align: center;
+	margin-top: 30px;
+}
+
+
+.perfil-content h4{
+	font-weight: bold;
+}
+
+.lista-usuarios{
+	padding: 10px 20px 10px 20px;
+}
+
+.usuario{
+	display: flex;
+	border-bottom: 1px solid #CCC;
+	padding: 20px;
+}
+
+.usuario img{
+	width: 60px;
+	border-radius: 50%;
+}
+
+.usuario .info{
+	margin-left: 10px;
+	padding-top: 5px;
+	width: 70%;
+}
+
+.usuario .info p, .usuario .info h4{
+	padding:0;
+	margin:0;
+}
+
+.usuario .info h4{
+	font-weight: bold;
+}
+
+.usuario .actions{
+	margin-right: auto;
+	width: 20%;
+	text-align: right;
 }
