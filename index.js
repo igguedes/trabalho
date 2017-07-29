@@ -4,11 +4,14 @@ var routes = require('./routes');
 var app = express();
 
 
-app.use(express.static('front'));
+app.use('/', express.static('front'));
 
 
 app.use('/back',routes);
 
+app.all('/*', function(req, res, next) {
+  res.sendFile('front/index.html', { root: __dirname });
+});
 
 app.listen(3000, function(){
 	console.log("servidor rodando porta 3000");

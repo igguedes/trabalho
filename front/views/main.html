@@ -1,6 +1,6 @@
 <nav class="custom-nav">
 	<div class="menu">
-		<a class="menu-item {{isRouteActive('/')? 'active' : ''}}" href="/home">
+		<a class="menu-item {{isRouteActive('/home')? 'active' : ''}}" href="/home">
 			<span><span><i class="fa fa-home"></i></span></span>
 			<span>Principal</span>
 		</a>
@@ -14,7 +14,7 @@
 		</a>
 		<div class="search">
 			 <input type="text" ng-model="busca" class="form-control" placeholder="Buscar usuarios" style="margin-top: 2px">
-			 <a class="btn btn-default" style="margin-left: 5px;height: 35px;margin-top: 1px" href="#/usuarios?pesquisa={{busca}}">Buscar</a>
+			 <a class="btn btn-default" style="margin-left: 5px;height: 35px;margin-top: 1px" href="/usuarios?pesquisa={{busca}}">Buscar</a>
 		</div>
 	</div>
 
