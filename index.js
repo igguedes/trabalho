@@ -7,7 +7,7 @@ var app = express();
 app.use(express.static('front'));
 
 
-app.use(routes);
+app.use('/back',routes);
 
 
 app.listen(3000, function(){

@@ -38,7 +38,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider, $location
 				}
 				$scope.logout = function (){
 					localStorage.removeItem('web_token');
-					$location.path('login');
+					$location.path('/');
 					toastr.warning('Você saiu!');
 				}
 			}

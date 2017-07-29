@@ -1,15 +1,15 @@
 app.factory('User', function($http){
 
 	function insert(params){
-		return $http.post('/usuario',params);
+		return $http.post('/back/usuario',params);
 	}
 
 	function login(params){
-		return $http.post('/login', params);
+		return $http.post('/back/login', params);
 	}
 
 	function getAll(params){
-		return $http.get('/usuarios?pesquisa=' + params);
+		return $http.get('/back/usuarios?pesquisa=' + params);
 	}
 
 	return{
