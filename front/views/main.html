@@ -23,11 +23,16 @@
 	<div class="main">
 		<div class="perfil card">
 			<div class="perfil-header">
-				<img src="../eu.jpg">
+				<img ng-if="!myImage" src="/images/{{usuario.foto}}" onerror="this.src='/images/placeholder.png'">
+				<img ng-if="myImage" src="{{myImage}}">
 			</div>
 			<div class="perfil-content">
-				<h4>Igor Guedes {{teste}}</h4>
-				<p>teste@teste.com</p>
+				<h4>{{usuario.nome}}</h4>
+				<p>{{usuario.email}}</p>
+				<label class="custom-file-upload" style="margin-top: 10px">
+				    <input type="file" id="imageUpload" style="display: none"/>
+				    Alterar imagem
+				</label>
 				<button ng-click="logout()" class="btn btn-danger">
 					Sair
 				</button>

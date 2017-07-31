@@ -34,10 +34,11 @@ UsuarioCtrl.login = function(req, res){
 			var usr = {
 				id : row.attributes.id,
 				email : row.attributes.email,
-				nome : row.attributes.nome
+				nome : row.attributes.nome,
+				foto: row.attributes.foto
 			}
 			var token = Autenticacao.gerarToken(usr);
-			res.status(200).json({usurario: usr,token: token,msg : "Login com sucesso"});
+			res.status(200).json({usuario: usr,token: token,msg : "Login com sucesso"});
 		})
 
 }
@@ -144,6 +145,41 @@ UsuarioCtrl.delete = function(req, res){
 			res.status(400).json({error: error});
 		}
 	);
+}
+
+
+UsuarioCtrl.atualizarFoto = function(req, res){
+	// return console.log(req.body);
+	var usuario = req.body;
+	var img64 = usuario.foto;
+	var arrayImg64 = img64.split(",");
+	var ext = arrayImg64[0].split('/').pop().split(';').shift();
+	var nome = new Date();
+	nome = nome.getDate()+"-"+nome.getMonth()+"-"+nome.getYear()+"-"+nome.getHours()+":"+nome.getMinutes()+":"+nome.getSeconds();
+	usuario.foto = nome+'.'+ext;
+	var fotoAux = usuario.foto;
+	fs.writeFile("img/"+usuario.foto, arrayImg64[1], 'base64', function(err){
+		if (err == null){
+			delete usuario.foto;
+			Usuario.forge({id: usuario.id}).save({foto: fotoAux}, {method: 'update'})
+			.then(
+				//Função executada quando o usuário é inserido
+				function(usuario){
+					console.log('sucesso');
+					res.status(200).json({msg: "Atualizado com sucesso", foto: fotoAux});
+				}
+			)
+			.catch(
+				//Função executada no caso de ocorrer algum erro
+				function(error){
+					console.log('error');
+					res.status(400).json({error: error});
+				}
+			);
+		}else{
+			console.log(err);
+		}
+	});	
 }
 
 module.exports = UsuarioCtrl;

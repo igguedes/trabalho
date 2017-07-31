@@ -2,7 +2,7 @@
 	<h3>Lista de usuários</h3>
 	<div class="usuario" ng-repeat="usuario in usuarios">
 		<div class="imagem">
-			<img src="../eu.jpg">
+			<img src="/images/{{usuario.foto}}" onerror="this.src='/images/placeholder.png'">
 		</div>
 		<div class="info">
 			<h4>{{usuario.nome}}</h4>

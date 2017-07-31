@@ -12,9 +12,14 @@ app.factory('User', function($http){
 		return $http.get('/back/usuarios?pesquisa=' + params);
 	}
 
+	function uploadImage(params){
+		return $http.put('/back/foto', params);
+	}
+
 	return{
 		insert: insert,
 		login: login,
-		getAll: getAll
+		getAll: getAll,
+		uploadImage: uploadImage
 	}
 });

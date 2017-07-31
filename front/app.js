@@ -37,16 +37,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider, $location
 		.state('main',{
 			url:'',
 			templateUrl: 'views/main.html',
-			controller: function($scope, $location){
-				$scope.isRouteActive = function(url){
-					return $location.path() == url;
-				}
-				$scope.logout = function (){
-					localStorage.removeItem('web_token');
-					$location.path('/');
-					toastr.warning('Você saiu!');
-				}
-			}
+			controller: 'MainCtrl'
 		})
 		.state('main.home',{
 			url:'/home',

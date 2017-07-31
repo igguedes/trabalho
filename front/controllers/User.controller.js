@@ -16,7 +16,6 @@ app.controller('UserCtrl', function($scope, User, $state, $location){
 	$scope.login = function(credenciais){
 		User.login(credenciais)
 			.then(function(response){
-				console.log(response);
 				localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
 				localStorage.setItem('web_token', response.data.token);
 				toastr.success('Logado com sucesso!');

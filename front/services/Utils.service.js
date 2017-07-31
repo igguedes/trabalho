@@ -1,7 +1,8 @@
 app.factory('Utils', function(){
+
+	var socket = io();
+
 	return{
-		print: function(){
-			alert('ola');
-		}
+		socket: socket
 	}
 });
