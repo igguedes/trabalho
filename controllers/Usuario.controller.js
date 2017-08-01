@@ -45,8 +45,9 @@ UsuarioCtrl.login = function(req, res){
 
 }
 
-UsuarioCtrl.addUsuario = function (req, res){
-	// return console.log(req.body);
+
+UsuarioCtrl.seguirUsuario = function (req, res){
+
 	var seguidor = req.params.idSeguidor;
 	var seguindo = req.params.idSeguindo;
 	console.log(req.params);
@@ -54,7 +55,7 @@ UsuarioCtrl.addUsuario = function (req, res){
 	Amizade.forge({id_seguidor: seguidor, id_seguindo: seguindo}).save()
 		   .then(
 		   		function(){
-		   			console.log('add com sucesso');
+		   			console.log('Seguindo com sucesso');
 		   			res.status(200).json({msg:'Inserido com sucesso'});
 		   		}
 		   	).catch(
@@ -70,28 +71,58 @@ UsuarioCtrl.addUsuario = function (req, res){
 		   	});
 }
 
-UsuarioCtrl.listaSeguidor = function(req, res){
+UsuarioCtrl.unSerguirUsuario = function(res, req){
+	
+}
+
+UsuarioCtrl.listarSeguidor = function(req, res){
 	var seguindo = req.params.idSeguindo;
 	Amizade.forge()
 			.query(
 				function(q){
-					console.log(seguindo);
-					q.select('*');
 					q.where('id_seguindo','=',seguindo);
-					q.orderBy('id_seguidor', 'DESC');
 				}
 			)
 			.fetchAll()
 			.then(
 				function(rows){
-					console.log(seguindo);
-					console.log(rows);
-					res.status(200).json(rows.attributes.id_seguidor);
+					var dados = rows.toJSON();
+                  	dados = dados.map(
+                  		function(elemento){
+                  			return {id_seguidor: elemento.id_seguidor}
+                  		}
+                  	);
+					res.status(200).json(dados);
 				}
 			).catch(
 				function(err){
 					console.log(err);
 					res.status(401).json({error: err});
+				}
+			);
+}
+
+UsuarioCtrl.listarSeguindo = function(req, res){
+	var seguidor = req.params.idSeguidor;
+	Amizade.forge()
+			.query(
+				function(q){
+					q.where('id_seguidor','=',seguidor);
+				}
+			).fetchAll()
+			.then(
+				function(rows){
+					var dados = rows.toJSON();
+					dados = dados.map(
+						function(e){
+							return {id_seguindo: e.id_seguindo}
+						}
+					);
+					res.status(200).json(dados);
+				}
+			).catch(
+				function(err){
+					res.status(401).json({msg: err});
 				}
 			);
 }
