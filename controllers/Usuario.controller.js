@@ -3,6 +3,7 @@ var Usuario = require('../models/Usuario.model');
 var Amizade = require('../models/Amizade.model');
 var Autenticacao = require('./Autenticacao.controller');
 var Notificacoes = require('../models/Notificacoes.model');
+var Postagens = require('../models/Postagens.model');
 var fs = require('fs');
 
 UsuarioCtrl.getAll = function(req, res){
@@ -71,8 +72,59 @@ UsuarioCtrl.seguirUsuario = function (req, res){
 		   	});
 }
 
-UsuarioCtrl.unSerguirUsuario = function(res, req){
-	
+UsuarioCtrl.postagens = function(req, res){
+	var dados = req.body;
+	dados.data_postagem = new Date();
+	dados.data_postagem = dados.data_postagem.toLocaleString();
+	//console.log(dados);
+	Postagens.forge()
+			.query(
+				function(q){
+					console.log(dados.usuario_id);
+					q.where('usuario_id','=',dados.usuario_id);
+					q.orderBy('id', 'DESC');
+				}
+			).fetch()
+			.then(
+				function(usuario){
+					var databanco = usuario.attributes.data_postagem;
+					databanco.setDate(databanco.getDate() + 1);
+					var dataAtual = dados.data_postagem.toLocaleString();
+					var data24 = databanco.toLocaleString()
+					if(dataAtual < data24){
+						console.log({msg:'Usuario não pode fazer uma nova Postagem', data_nova_postagem : data24});
+						res.status(401).json({msg:'Usuario não pode fazer uma nova Postagem', data_nova_postagem : data24});
+					}else{
+						Postagens.forge().save(dados)
+								 .then(
+								 	function(usuario){
+								 		console.log(usuario);
+								 		res.status(200).json({msg: 'Postado com sucesso', usuario: usuario});
+								 	}
+								 ).catch(
+								 	function(err){
+								 		console.log(err);
+								 		res.status(401).json({error : err});
+								 	}
+								 );
+					};
+				}
+			).catch(
+				function(err){
+					Postagens.forge().save(dados)
+							 .then(
+							 	function(usuario){
+							 		console.log(usuario);
+							 		res.status(200).json({msg: 'Postado com sucesso', usuario: usuario});
+							 	}
+							 ).catch(
+							 	function(err){
+							 		console.log(err);
+							 		res.status(401).json({error : err});
+							 	}
+							 );
+				}
+			)
 }
 
 UsuarioCtrl.listarSeguidor = function(req, res){
@@ -160,7 +212,7 @@ UsuarioCtrl.criaUsuario = function(req, res){
 				.then(
 					//Função executada quando o usuário é inserido
 					function(usuario){
-						res.status(200).json({msg: "Inserido com sucesso"});
+						res.status(200).json({msg: "Inserido com sucesso", usuario : usuario});
 					}
 				)
 				.catch(

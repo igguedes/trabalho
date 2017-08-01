@@ -17,6 +17,8 @@ routes.post('/seguir/seguidor/:idSeguidor/seguindo/:idSeguindo',UsuarioCtrl.segu
 routes.get('/lista_seguidor/:idSeguindo', UsuarioCtrl.listarSeguidor);
 routes.get('/lista_seguindo/:idSeguidor', UsuarioCtrl.listarSeguindo);
 
+routes.post('/postagens', UsuarioCtrl.postagens);
+
 routes.post('/login',UsuarioCtrl.login);
 routes.put('/usuario/:id', UsuarioCtrl.put);
 routes.delete('/usuario/:id', UsuarioCtrl.delete);
