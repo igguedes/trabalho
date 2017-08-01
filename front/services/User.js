@@ -24,12 +24,17 @@ app.factory('User', function($http){
 		return $http.get('/back/notificacoes/usuario/' + id_usuario);
 	}
 
+	function listarAmigos(id){
+		return $http.get('/back/lista_seguindo/'+ id);
+	}
+
 	return{
 		insert: insert,
 		login: login,
 		getAll: getAll,
 		uploadImage: uploadImage,
 		seguir: seguir,
-		listarNotificacoes: listarNotificacoes
+		listarNotificacoes: listarNotificacoes,
+		listarAmigos: listarAmigos
 	}
 });

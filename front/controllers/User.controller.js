@@ -21,6 +21,7 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 				localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
 				localStorage.setItem('web_token', response.data.token);
 				toastr.success('Logado com sucesso!');
+				$scope.listarAmigos(response.data.usuario.id);
 				$state.go('main.home');
 			})
 			.catch(function(error){
@@ -51,6 +52,7 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 		User.seguir($scope.my_id, id, {nome: $scope.usuario.nome})
 			.then(function(response){
 				Utils.socket.emit('evento_seguir', {to: id, mensagem: $scope.usuario.nome + ' comẽçou a seguir você'});
+				location.reload();
 			})
 			.catch(function(error){
 				console.log(error);
@@ -67,8 +69,45 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 		});
 	}
 
-	$scope.lerNotificacoes();
+	$scope.listarAmigos = function(){
+		User.listarAmigos($scope.usuario.id)
+			.then(function(response){
+				console.log(response);
+				setAmigos(response.data);
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+	}
 
+	function setAmigos(array){
+		var ids = array.map(function(item){
+			return item.id_seguindo
+		});
+		localStorage.setItem('seguindo', JSON.stringify(ids));
+		console.log(getAmigos());
+	}
+
+	function getAmigos(){
+		return JSON.parse(localStorage.getItem('seguindo')) || [];
+	}
+
+	$scope.canFollow = function(row){
+		if(getAmigos().indexOf(row) == -1){
+			return true;
+		}
+		return false;
+	}
+
+	if($location.path() == '/notificacoes'){
+		$scope.lerNotificacoes();
+	}
+
+	if($location.path() == '/usuarios'){
+		$scope.listarAmigos();
+	}
+
+	
 	if($location.path() != '/cadastro'){
 		$scope.listarUsuarios();
 	}
