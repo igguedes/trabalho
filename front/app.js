@@ -2,10 +2,10 @@ var app = angular.module('Web2', ['ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
 
-		$locationProvider.html5Mode({
-                 enabled: true,
-                 requireBase: false
-          });
+	$locationProvider.html5Mode({
+	         enabled: true,
+	         requireBase: false
+	});
 
 	$httpProvider.interceptors.push(function($q,$injector) {
 	      return {
@@ -51,7 +51,8 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider, $location
 		})
 		.state('main.notificacoes',{
 			url:'/notificacoes',
-			templateUrl: 'views/notificacoes.html'
+			templateUrl: 'views/notificacoes.html',
+			controller: 'UserCtrl'
 		});
 
 

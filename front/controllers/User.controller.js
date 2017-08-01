@@ -1,6 +1,8 @@
-app.controller('UserCtrl', function($scope, User, $state, $location){
+app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 	$scope.usuarios = [];
-
+	$scope.usuario = JSON.parse(localStorage.getItem('usuario'));
+	$scope.usuario && ($scope.my_id = $scope.usuario.id);
+	$scope.notificacoes = [];
 	$scope.insert = function(dados){
 		delete dados.senha2;
 		User.insert(dados)
@@ -43,6 +45,29 @@ app.controller('UserCtrl', function($scope, User, $state, $location){
 		}
 
 	}
+
+
+	$scope.seguir = function(id){
+		User.seguir($scope.my_id, id, {nome: $scope.usuario.nome})
+			.then(function(response){
+				Utils.socket.emit('evento_seguir', {to: id, mensagem: $scope.usuario.nome + ' comẽçou a seguir você'});
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+	}
+
+	$scope.lerNotificacoes = function(){
+		User.listarNotificacoes($scope.usuario.id)
+		.then(function(response){
+			$scope.notificacoes = response.data;
+		})
+		.catch(function(error){
+			console.log(error);
+		});
+	}
+
+	$scope.lerNotificacoes();
 
 	if($location.path() != '/cadastro'){
 		$scope.listarUsuarios();

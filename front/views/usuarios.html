@@ -1,6 +1,6 @@
 <div class="lista-usuarios">
 	<h3>Lista de usuários</h3>
-	<div class="usuario" ng-repeat="usuario in usuarios">
+	<div class="usuario" ng-repeat="usuario in usuarios" ng-if="usuario.id != my_id">
 		<div class="imagem">
 			<img src="/images/{{usuario.foto}}" onerror="this.src='/images/placeholder.png'">
 		</div>
@@ -9,12 +9,9 @@
 			<p>{{usuario.email}}</p>
 		</div>
 		<div class="actions">
-			<button class="btn btn-success">
+			<button class="btn btn-success" ng-click="seguir(usuario.id)">
 				Seguir
 			</button>
-<!-- 			<button class="btn btn-danger">
-				Deixar de seguir
-			</button> -->
 		</div>
 	</div>
 </div>

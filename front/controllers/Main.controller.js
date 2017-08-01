@@ -6,6 +6,12 @@ app.controller('MainCtrl', function($scope, Utils, $http, $state, $location, Use
 
 	$scope.usuario = JSON.parse(localStorage.getItem('usuario'));
 
+	Utils.socket.on('evento_seguir', function(data){
+		if(data.to == $scope.usuario.id){
+			toastr.info(data.mensagem);
+		}
+	});
+
 	$scope.logout = function (){
 		localStorage.removeItem('web_token');
 		$location.path('/');

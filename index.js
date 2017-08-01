@@ -8,11 +8,9 @@ var io = require('socket.io')(http);
 
 
 io.on('connection', function(socket){
-  console.log('usuario se conectou');
 
-  socket.on('newPost', function(){
-  	console.log('usuario postou');
-  	io.emit('newPost');
+  socket.on('evento_seguir', function(data){
+  	io.emit('evento_seguir', data);
   });
 
   socket.on('disconnect', function(){

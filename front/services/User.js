@@ -16,10 +16,20 @@ app.factory('User', function($http){
 		return $http.put('/back/foto', params);
 	}
 
+	function seguir(id_seguidor, id_seguindo, params){
+		return $http.post('/back/seguir/seguidor/'+id_seguidor+'/seguindo/' + id_seguindo, params);
+	}
+
+	function listarNotificacoes(id_usuario){
+		return $http.get('/back/notificacoes/usuario/' + id_usuario);
+	}
+
 	return{
 		insert: insert,
 		login: login,
 		getAll: getAll,
-		uploadImage: uploadImage
+		uploadImage: uploadImage,
+		seguir: seguir,
+		listarNotificacoes: listarNotificacoes
 	}
 });

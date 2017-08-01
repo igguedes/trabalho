@@ -25,9 +25,14 @@ ALTER TABLE amizade ADD CONSTRAINT FOREIGN KEY (id_seguindo) REFERENCES usuario(
 
 CREATE TABLE notificacoes(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	lida BOOLEAN DEFAULT FALSE,
+	not_from INTEGER,
+	not_to INTEGER,
 	mensagem VARCHAR(200)
 );
+
+Select * from notificacoes;
+
+TRUNCATE TABLE amizade;
 
 SELECT * FROM usuario;
 SELECT * FROM amizade;

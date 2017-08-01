@@ -2,6 +2,7 @@ var UsuarioCtrl = {};
 var Usuario = require('../models/Usuario.model');
 var Amizade = require('../models/Amizade.model');
 var Autenticacao = require('./Autenticacao.controller');
+var Notificacoes = require('../models/Notificacoes.model');
 var fs = require('fs');
 
 UsuarioCtrl.getAll = function(req, res){
@@ -45,6 +46,7 @@ UsuarioCtrl.login = function(req, res){
 }
 
 UsuarioCtrl.addUsuario = function (req, res){
+	// return console.log(req.body);
 	var seguidor = req.params.idSeguidor;
 	var seguindo = req.params.idSeguindo;
 	console.log(req.params);
@@ -61,6 +63,11 @@ UsuarioCtrl.addUsuario = function (req, res){
 		   			res.status(401).json({msg: err});
 		   		}
 		   	);
+		   	Notificacoes.forge().save({
+		   		not_from: seguidor,
+		   		not_to: seguindo,
+		   		mensagem: req.body.nome + ' começou a seguir você'
+		   	});
 }
 
 UsuarioCtrl.listaSeguidor = function(req, res){
@@ -226,6 +233,24 @@ UsuarioCtrl.atualizarFoto = function(req, res){
 			console.log(err);
 		}
 	});	
+}
+
+UsuarioCtrl.notificacoes = function(req, res){
+	console.log(req.params.id_usuario);
+	Notificacoes.forge()
+	.query(function(q){
+		q.where('not_to','=', req.params.id_usuario);
+	})
+	.fetchAll()
+	.then(function(rows){
+		var dados = rows.toJSON();
+		console.log(dados);
+		res.status(200).json(dados);
+	})
+	.catch(function(error){
+		console.log(error);
+		res.status(400).json({msg: error});
+	})
 }
 
 module.exports = UsuarioCtrl;
