@@ -1,1 +1,29 @@
-<h1>home</h1>
+<div class="home-content">
+	<div class="form-group">
+		<label>No que você está pensando?</label>
+		<textarea rows="3" maxlength="200" ng-model="postagem" class="form-control" ng-focus="showButtons=true"></textarea>
+		<div style="text-align: right; margin-top: 5px">
+			<button ng-show="showButtons==true" ng-click="postagem=''; showButtons=false" class="btn btn-default">Cancelar</button>
+			<button ng-if="showButtons" class="btn btn-primary">Postar</button>
+		</div>	
+	</div>
+	<div class="posts">
+		<h3>Postagens</h3> 
+		<hr>
+		<div class="post">
+			<img src="/images/{{usuario.foto}}" onerror="this.src='/images/placeholder.png'">
+			<div class="user-data">
+				<h4>Igor Guedes</h4>
+				<p>30/07/2017</p>
+				<div>
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

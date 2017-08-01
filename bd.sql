@@ -29,3 +29,8 @@ CREATE TABLE notificacoes(
 	mensagem VARCHAR(200)
 );
 
+SELECT * FROM usuario;
+SELECT * FROM amizade;
+INSERT INTO amizade(id_seguidor, id_seguindo) VALUES (3,1);
+
+SELECT usuario.nome seguindo FROM usuario JOIN amizade ON usuario.id = amizade.id_seguidor;
