@@ -63,23 +63,22 @@ UsuarioCtrl.addUsuario = function (req, res){
 		   	);
 }
 
-UsuarioCtrl.listaSeguidor = function(req, res){
+UsuarioCtrl.listarSeguidor = function(req, res){
 	var seguindo = req.params.idSeguindo;
 	Amizade.forge()
 			.query(
 				function(q){
-					console.log(seguindo);
-					q.select('*');
 					q.where('id_seguindo','=',seguindo);
-					q.orderBy('id_seguidor', 'DESC');
 				}
 			)
 			.fetchAll()
 			.then(
 				function(rows){
-					console.log(seguindo);
-					console.log(rows);
-					res.status(200).json(rows.attributes.id_seguidor);
+					var dados = rows.toJSON();
+                  	dados = dados.map(
+                  		function(elemento){
+                  			return {id_seguidor: elemento.id_seguidor}})
+					res.status(200).json(dados);
 				}
 			).catch(
 				function(err){
@@ -87,6 +86,10 @@ UsuarioCtrl.listaSeguidor = function(req, res){
 					res.status(401).json({error: err});
 				}
 			);
+}
+
+UsuarioCtrl.listarSeguindo = function(req, res){
+	var seguidor = req.params.idSeguidor;
 }
 
 UsuarioCtrl.get = function(req, res){
