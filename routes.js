@@ -12,6 +12,8 @@ routes.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 routes.get('/usuarios', AutenticacaoCtrl.verificarCredenciais, UsuarioCtrl.getAll);
 routes.get('/usuario/:id', UsuarioCtrl.get);
 routes.post('/usuario', UsuarioCtrl.criaUsuario);
+routes.get('/seguir/seguidor/:idSeguidor/seguindo/:idSeguindo',UsuarioCtrl.addUsuario);
+routes.get('/lista_seguidor/:idSeguindo', UsuarioCtrl.listaSeguidor);
 routes.post('/login',UsuarioCtrl.login);
 routes.put('/usuario/:id', UsuarioCtrl.put);
 routes.delete('/usuario/:id', UsuarioCtrl.delete);

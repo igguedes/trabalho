@@ -1,5 +1,6 @@
 var UsuarioCtrl = {};
 var Usuario = require('../models/Usuario.model');
+var Amizade = require('../models/Amizade.model');
 var Autenticacao = require('./Autenticacao.controller');
 var fs = require('fs');
 
@@ -25,7 +26,7 @@ UsuarioCtrl.login = function(req, res){
 	var usuario = req.body;
 	Usuario.forge()
 		.query(function(q){
-			q.where('email','=', usuario.email);
+			q.where('email','=', usuario.email);	
 			q.where('senha','=', usuario.senha);
 		})
 		.fetch()
@@ -41,6 +42,51 @@ UsuarioCtrl.login = function(req, res){
 			res.status(200).json({usuario: usr,token: token,msg : "Login com sucesso"});
 		})
 
+}
+
+UsuarioCtrl.addUsuario = function (req, res){
+	var seguidor = req.params.idSeguidor;
+	var seguindo = req.params.idSeguindo;
+	console.log(req.params);
+	console.log({idSeguidor: seguidor, idSeguindo: seguindo});
+	Amizade.forge({id_seguidor: seguidor, id_seguindo: seguindo}).save()
+		   .then(
+		   		function(){
+		   			console.log('add com sucesso');
+		   			res.status(200).json({msg:'Inserido com sucesso'});
+		   		}
+		   	).catch(
+		   		function(err){
+		   			console.log(err);
+		   			res.status(401).json({msg: err});
+		   		}
+		   	);
+}
+
+UsuarioCtrl.listaSeguidor = function(req, res){
+	var seguindo = req.params.idSeguindo;
+	Amizade.forge()
+			.query(
+				function(q){
+					console.log(seguindo);
+					q.select('*');
+					q.where('id_seguindo','=',seguindo);
+					q.orderBy('id_seguidor', 'DESC');
+				}
+			)
+			.fetchAll()
+			.then(
+				function(rows){
+					console.log(seguindo);
+					console.log(rows);
+					res.status(200).json(rows.attributes.id_seguidor);
+				}
+			).catch(
+				function(err){
+					console.log(err);
+					res.status(401).json({error: err});
+				}
+			);
 }
 
 UsuarioCtrl.get = function(req, res){
