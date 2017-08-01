@@ -9,7 +9,7 @@
 			<p>{{usuario.email}}</p>
 		</div>
 		<div class="actions">
-			<button class="btn btn-success" ng-click="seguir(usuario.id)">
+			<button ng-if="canFollow(usuario.id)" class="btn btn-success" ng-click="seguir(usuario.id)">
 				Seguir
 			</button>
 		</div>
