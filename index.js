@@ -14,8 +14,11 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(){
-  	console.log('usuario disconectado');
   	io.emit('disconected');
+  });
+
+  socket.on('nova_postagem', function(data){
+  	io.emit('nova_postagem', data);
   });
 
 });

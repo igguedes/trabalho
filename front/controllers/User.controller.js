@@ -3,6 +3,7 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 	$scope.usuario = JSON.parse(localStorage.getItem('usuario'));
 	$scope.usuario && ($scope.my_id = $scope.usuario.id);
 	$scope.notificacoes = [];
+	$scope.postagens = [];
 	$scope.insert = function(dados){
 		delete dados.senha2;
 		User.insert(dados)
@@ -88,6 +89,30 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 		console.log(getAmigos());
 	}
 
+	$scope.enviarMensagem = function(mensagem){
+		User.enviarMensagem({usuario_id: $scope.usuario.id, texto: mensagem})
+		.then(function(response){
+			Utils.socket.emit('nova_postagem', {
+				id: $scope.usuario.id,
+				nome: $scope.usuario.nome
+			});
+			toastr.success('Postado com sucesso!');
+		})
+		.catch(function(error){
+			toastr.error(error.data.msg);
+		})
+	}
+
+	$scope.listarPostagens = function(){
+		User.listarPostagens()
+		.then(function(response){
+			$scope.postagens = response.data;
+		})
+		.catch(function(error){
+			toastr.error('Falha ao listar postagens');
+		})
+	}
+
 	function getAmigos(){
 		return JSON.parse(localStorage.getItem('seguindo')) || [];
 	}
@@ -99,6 +124,13 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 		return false;
 	}
 
+	$scope.canShow = function(row){
+		var amigos = getAmigos();
+		return amigos.some(function(amigo){
+			return amigo == row;
+		});
+	}
+
 	if($location.path() == '/notificacoes'){
 		$scope.lerNotificacoes();
 	}
@@ -107,8 +139,19 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 		$scope.listarAmigos();
 	}
 
+	if($location.path() == '/home'){
+		$scope.listarPostagens();
+	}
 	
 	if($location.path() != '/cadastro'){
 		$scope.listarUsuarios();
 	}
+
+	Utils.socket.on('nova_postagem', function(data){
+		if($scope.canShow(data.id)){
+			$scope.listarPostagens();
+			toastr.info(data.nome + ' Acabou de fazer uma postagem!');
+		}
+
+	});
 });

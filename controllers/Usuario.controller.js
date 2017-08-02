@@ -80,6 +80,7 @@ UsuarioCtrl.postagens = function(req, res){
 	Postagens.forge()
 			.query(
 				function(q){
+					console.log('passou no q');
 					console.log(dados.usuario_id);
 					q.where('usuario_id','=',dados.usuario_id);
 					q.orderBy('id', 'DESC');
@@ -93,7 +94,7 @@ UsuarioCtrl.postagens = function(req, res){
 					var data24 = databanco.toLocaleString()
 					if(dataAtual < data24){
 						console.log({msg:'Usuario não pode fazer uma nova Postagem', data_nova_postagem : data24});
-						res.status(401).json({msg:'Usuario não pode fazer uma nova Postagem', data_nova_postagem : data24});
+						res.status(400).json({msg:'Usuario não pode fazer uma nova Postagem', data_nova_postagem : data24});
 					}else{
 						Postagens.forge().save(dados)
 								 .then(
@@ -125,6 +126,31 @@ UsuarioCtrl.postagens = function(req, res){
 							 );
 				}
 			)
+}
+
+UsuarioCtrl.listarPostagens = function(req, res){
+	Postagens.forge()
+	.fetchAll()
+	.then(function(rows){
+		var dados = rows.toJSON();
+		res.status(200).json(dados);
+	})
+	.catch(function(error){
+		res.status(400).json({msg: error});
+	})
+	// Postagens.query(function(q){
+	// 	q.innerJoin('usuario', function(){
+	// 		this.on('usuario.id','=','postagens.usuario_id')
+	// 	})
+	// }).fetchAll()
+	// .then(function(rows){
+	// 	var dados = rows.toJSON();
+	// 	console.log(dados);
+	// 	res.status(200).json(dados);
+	// })
+	// .catch(function(error){
+	// 	res.status(400).json({error: error});
+	// });
 }
 
 UsuarioCtrl.listarSeguidor = function(req, res){

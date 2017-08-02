@@ -28,6 +28,14 @@ app.factory('User', function($http){
 		return $http.get('/back/lista_seguindo/'+ id);
 	}
 
+	function enviarMensagem(params){
+		return $http.post('/back/postagens', params);
+	}
+
+	function listarPostagens(){
+		return $http.get('/back/postagens');
+	}
+
 	return{
 		insert: insert,
 		login: login,
@@ -35,6 +43,8 @@ app.factory('User', function($http){
 		uploadImage: uploadImage,
 		seguir: seguir,
 		listarNotificacoes: listarNotificacoes,
-		listarAmigos: listarAmigos
+		listarAmigos: listarAmigos,
+		enviarMensagem: enviarMensagem,
+		listarPostagens: listarPostagens
 	}
 });

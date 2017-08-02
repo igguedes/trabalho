@@ -42,7 +42,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider, $location
 		.state('main.home',{
 			url:'/home',
 			templateUrl: 'views/home.html',
-			controller: 'MainCtrl'
+			controller: 'UserCtrl'
 		})
 		.state('main.usuarios',{
 			url:'/usuarios',
