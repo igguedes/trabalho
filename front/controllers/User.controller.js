@@ -22,8 +22,11 @@ app.controller('UserCtrl', function($scope, User, $state, $location, Utils){
 				localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
 				localStorage.setItem('web_token', response.data.token);
 				toastr.success('Logado com sucesso!');
-				$scope.listarAmigos(response.data.usuario.id);
+				
 				$state.go('main.home');
+				setTimeout(function(){
+					$scope.listarAmigos(JSON.parse(localStorage.getItem('usuario')).id);
+				}, 1000);
 			})
 			.catch(function(error){
 				toastr.error('Falha no Login');
