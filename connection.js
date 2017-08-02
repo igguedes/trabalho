@@ -2,9 +2,9 @@
 var params = {
   client: 'mysql',
   connection: {
-    host     : 'topplusdev.cml1pthi0vvx.us-east-2.rds.amazonaws.com',
-    user     : 'topplus',
-    password : 'topplus2017',
+    host     : '127.0.0.1',
+    user     : 'root',
+    password : 'igor1994',
     database : 'web2',
     charset  : 'utf8'
   }
